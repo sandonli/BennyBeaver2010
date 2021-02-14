@@ -4,9 +4,4 @@ class Trash extends Item {
         super(word, image);
     }
 
-    // void hitDam() {
-    //     if (yCoord >= GameState.damHeight) {
-    //         GameState.lives--;
-    //     }
-    // }
 }

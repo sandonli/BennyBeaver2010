@@ -60,9 +60,15 @@ void draw() {
             setupLevelScreen(1);
             break;
         case 4:
-            // gameOverScreen();
+            // Game over
+            background(0,0,0);
+            textFont(introText, 40);
+            fill(100,0,0);
+            textAlign(CENTER);
+            text("Barry's Dam is Destroyed!\nGAME OVER!",850/2, 850/2);
             break;
         case 5:
+            // Level Passs
             background(255);
             textFont(introText,40);
             textAlign(CENTER);

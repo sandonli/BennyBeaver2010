@@ -8,9 +8,9 @@ class Item {
     //the number of letters of the word written successfully
 
     //TODO: What are the horizontal px boundaries of the River?
-    float xCoord = random(50, GameState.screenWidth); //horizontal pos of item
-    int yCoord = floor(random(0, -500)); //vertical pos of item, initially 0 (top of screen)
-    float ySpeed = random(1, 2); // speed of item falling
+    float xCoord = random(220, 550); //horizontal pos of item
+    float yCoord = random(-500, 0); //vertical pos of item, initially 0 (top of screen)
+    float ySpeed = 2; // speed of item falling
 
     int width; //width of item
     int height; //height of item
@@ -23,11 +23,7 @@ class Item {
         this.width = image.width;
         this.height = image.height;
     }
-
-    void itemFall(){
-        yCoord += ySpeed;
-    }
-
+    
     void writeWord() {
         written = true;
         //TODO: Create POOF animation sprite here for when item disappears

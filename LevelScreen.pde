@@ -1,10 +1,15 @@
-PImage background; //TODO: Load the level screen background image
+// Gif river;
+PImage[] river = new PImage[3];
+int imageCount = 3;
+int frame;
 
 ArrayList<Item> itemsInLevel = new ArrayList();
 ArrayList<Item> itemsOnScreen = new ArrayList();
-int logCount = 0; //# of logs the player has collected
+int logCount = 0; //# of logs the 
+
 int wordCount = 0;
 boolean test = true;
+boolean sad = true;
 PFont levelScreenFont;
 String typing = "";
 GameState gs = new GameState();
@@ -61,19 +66,34 @@ void obtainWords(int difficulty){
 // main entry point method for this screen
 void setupLevelScreen(int difficulty) {
     background(255);
+    displayRiver();
     if (wordCount == 30) {
         mode = 5;
     }
     levelScreenFont = createFont("joystix monospace.ttf", 20);
     textFont(levelScreenFont, 20);
     obtainWords(difficulty);
-    initializeLevelScreen(difficulty);
+    if (sad) initializeLevelScreen(difficulty);
     // updateItemsOnScreen();
     moveItems();
     checkCollisions();
     displayTextTrash();
     displayText();
     checkIfMatch();
+    checkIfGameOver();
+}
+
+void displayRiver() {
+    String filename1 = "river1.png";
+    String filename2 = "river2.png";
+    String filename3 = "river3.png";
+    river[0] = loadImage(filename1);
+    river[1] = loadImage(filename2);
+    river[2] = loadImage(filename3);
+
+    frame = (frame + 1) % imageCount;
+    image(river[frame], 0, 0);
+    delay(100);
 }
 
 //60fps
@@ -81,6 +101,7 @@ void initializeLevelScreen(int difficulty) {
     //Set background image value
     gs.lives = 3;
     // gs.difficulty = difficulty;
+    sad = false;
 }
 
 // 60fps
@@ -103,9 +124,11 @@ void moveItems() {
 //60fps
 void checkCollisions() {
     int indexToBeRemoved = -1;
-    for (Item item : itemsOnScreen) {
-        if (item.yCoord >= gs.damHeight) {
-            gs.lives--;
+    for (int i = 0; i < itemsOnScreen.size(); i++) {
+        Item item = itemsOnScreen.get(i);
+        if (item.yCoord >= 850) {
+            gs.lives = gs.lives - 1;
+            indexToBeRemoved = i;
             break;
         }
     }
@@ -153,7 +176,7 @@ void checkIfMatch() {
 //60fps
 void checkIfGameOver() {
     if (gs.lives == 0) {
-        //gameOverScreen();
+        mode = 4;
     }
 }
 
