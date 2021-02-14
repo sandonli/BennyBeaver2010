@@ -8,7 +8,7 @@ class Item {
     //the number of letters of the word written successfully
 
     //TODO: What are the horizontal px boundaries of the River?
-    float xCoord = random(220, 550); //horizontal pos of item
+    float xCoord = random(125, 450); //horizontal pos of item
     float yCoord = random(-500, 0); //vertical pos of item, initially 0 (top of screen)
     float ySpeed = 2; // speed of item falling
 
@@ -30,6 +30,29 @@ class Item {
     }
 
     //Setters and Getters
+
+    
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Item))
+            return false;
+        Item other = (Item)o;
+        boolean word = (this.word == null && other.word == null)
+        || (this.word != null && this.word.equals(other.word));
+        return this.xCoord == other.xCoord && word;
+    }
+
+    @Override
+    public final int hashCode() {
+        int result = 17;
+        if (word != null) {
+            result = 31 * result + word.hashCode();
+        }
+        return result;
+    }
+
 
 
 
