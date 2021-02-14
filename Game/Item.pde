@@ -4,6 +4,8 @@ abstract class Item {
     protected boolean written = false; //whether the word has been written by the user yet or not
                              // false - render item on screen with word
                              // true - make item disappear
+    protected int num_written = 0;
+    //the number of letters of the word written successfully
 
     //TODO: What are the horizontal px boundaries of the River?
     protected int xCoord = random(50, GameState.screenWidth) //horizontal pos of item
@@ -20,7 +22,4 @@ abstract class Item {
         written = true;
         //TODO: Create POOF animation sprite here for when item disappears
     }
-
-    
-
 }
