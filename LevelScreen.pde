@@ -15,10 +15,14 @@ PFont levelScreenFont;
 String typing = "";
 GameState gs = new GameState();
 
+boolean life1 = true;
+boolean life2 = true;
+
 //Initializes itemsInLevel
-void obtainWords(int difficulty){
+void obtainWords(int difficulty) {
     switch(difficulty) {
         case 1:
+            
             PImage p1 = loadImage("barrel_red.png");
             int randomCanadianWordIndex = floor(random(0, canadian.length));
             if (itemsOnScreen.size() < 20) {
@@ -56,7 +60,7 @@ void obtainWords(int difficulty){
             }
             break; 
         case 3:
-             PImage p3 = loadImage("barrel_red.png");
+            PImage p3 = loadImage("barrel_red.png");
             int randomCanadianWordIndex3 = floor(random(0, canadian.length));
             if (itemsOnScreen.size() < 60) {
                 String word3 = canadian[randomCanadianWordIndex3];
@@ -121,13 +125,24 @@ boolean itemIsValid(Item item) {
 void setupLevelScreen(int difficulty) {
     background(255);
     displayRiver();
-    if (wordCount == 30) {
-        mode = 5;
+    obtainWords(difficulty);
+    initializeLevelScreen(difficulty);
+    if (difficulty == 1) {
+        if (wordCount == 20) {
+        
+            mode = 5;
+        }        
+    } else if (difficulty == 2) {
+        if (wordCount == 40) {
+            mode = 8;
+        }
+    } else {
+        if (wordCount == 60) {
+            mode = 9; // winning mode
+        }
     }
     levelScreenFont = createFont("joystix monospace.ttf", 20);
     textFont(levelScreenFont, 20);
-    obtainWords(difficulty);
-    initializeLevelScreen(difficulty);
     // updateItemsOnScreen();
     moveItems();
     checkCollisions();
@@ -148,6 +163,25 @@ void displayRiver() {
     }
 }
 
+void changeSpeed(int difficulty) {
+    switch(difficulty) {
+        case 1:
+            break;
+        case 2:
+            for (Item item : itemsOnScreen) {
+                item.ySpeed *= 1.5;
+            }
+            break;
+        case 3:
+            for (Item item : itemsOnScreen) {
+                item.ySpeed *= 2;
+            }
+            break;
+        default:
+            break;
+    }
+}
+
 //60fps
 void initializeLevelScreen(int difficulty) {
     //Set background image value
@@ -155,14 +189,25 @@ void initializeLevelScreen(int difficulty) {
         case 1:
             gs.damHeight = 196;
             damImage = damSmall;
+            changeSpeed(1);
             break;
         case 2:
+            if (life1) {
+                gs.lives = 3;
+                life1 = false;
+            }
             gs.damHeight = 236;
+            wordCount = 0;
+            // itemsOnScreen = new ArrayList();
             damImage = damMedium;
+            // changeSpeed(2);
             break;
         case 3:
             gs.damHeight = 317;
             damImage = damLarge;
+            wordCount = 0;
+            itemsOnScreen = new ArrayList();
+            // changeSpeed(3);
             break;
         default:
             break;
@@ -204,12 +249,12 @@ void checkCollisions() {
         if (item.yCoord >= 850 - gs.damHeight) {
             gs.lives = gs.lives - 1;
             indexToBeRemoved = i;
+            //waterLeak();
             break;
         }
     }
     if (indexToBeRemoved != -1) {
         itemsOnScreen.remove(indexToBeRemoved);
-        waterLeak();
         typing="";
     }
 }
@@ -246,12 +291,16 @@ void displayText() {
 //60fps
 void checkIfMatch() {
     int indexToBeRemoved = -1;
-    Item removedItem = null;
+    // Item removedItem = null;
+    // float removedXCoord = -1;
+    // float removedYCoord = -1;
     for (int i = 0; i < itemsOnScreen.size(); i++) {
         Item item = itemsOnScreen.get(i);
         if (item.word.equalsIgnoreCase(typing)) {
-            removedItem = item;
-            removedItem.writeWord();
+            // removedItem = item;
+            // removedXCoord = item.xCoord;
+            // removedYCoord = item.yCoord;
+            item.writeWord();
             indexToBeRemoved = i;
             break;
             // itemsOnScreen.remove(item);
@@ -261,16 +310,17 @@ void checkIfMatch() {
         itemsOnScreen.remove(indexToBeRemoved);
         typing = "";
 
-        deltaTime = 2000;
-        previousDisplayTime = 0;
+        // deltaTime = 2000;
+        // previousDisplayTime = 0;
 
-        if (millis() > previousDisplayTime + deltaTime) {
-            for (int i = 0; i < 30; i++) {
-                frame5 = (frame5 + 1) % 30;
-                image(poof[frame5], removedItem.xCoord, removedItem.yCoord);
-                previousDisplayTime = millis();
-            }
-        }
+        // if (millis() > previousDisplayTime + deltaTime) {
+        // frame5 = (frame5 + 1) % 180;
+        // image(poof[frame5], removedXCoord, removedYCoord);
+        // print(removedXCoord);
+        // print(removedYCoord);
+        // previousDisplayTime = millis();
+            
+        // }
 
         wordCount++;
 

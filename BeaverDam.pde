@@ -7,13 +7,16 @@ BeaverDam is the main class which contains the setup() method to start the game
 
 // mode 1: intro screen, mode 2: 
 
+int level;
 PImage beaver;
 PImage damSmall;
 PImage damMedium;
 PImage damLarge;
+PImage bennyHappy;
+PImage bennySad;
 PImage [] waterhole = new PImage[30];
 PImage[] bennyBeaver = new PImage[30];
-PImage[] poof = new PImage[30];
+PImage[] poof = new PImage[180];
 PImage nextLevelSign;
 PImage[] intro = new PImage[30];
 String factory1 = "Factory_2.png";
@@ -43,6 +46,8 @@ PImage garbageBagUp;
 PImage skinnyWaterJug;
 PImage logInitLong;
 int mode;
+boolean once2 = false;
+boolean once3 = false;
 PFont introText;
 
 String[] canadian = {"eh", "maple syrup", "sorry","poutine","Toronto", "Calgary", "lacrosse", "Canada", "Lethbridge", "Edmonton", "Ottawa", "Raptors", "Justin Trudeau", "Alberta","Victoria",
@@ -69,6 +74,7 @@ String[] itemSprites = {
 // SoundFile victory = new SoundFile(this, "victory.wav");
 
 void setup() {
+    level = 1;
     size(850, 850);
     mode = 1;
     introText = createFont("joystix monospace.ttf", 40);
@@ -108,16 +114,16 @@ void setup() {
         }
     }
 
-    for (int b = 0; b < 30; b++) {
-        if (b < 5) {
+    for (int b = 0; b < 180; b++) {
+        if (b < 30) {
             poof[b] = loadImage("poof/poof_0.png");
-        } else if (b < 10) {
+        } else if (b < 60) {
             poof[b] = loadImage("poof/poof_1.png");
-        } else if (b < 15) {
+        } else if (b < 90) {
             poof[b] = loadImage("poof/poof_2.png");
-        } else if (b < 20) {
+        } else if (b < 120) {
             poof[b] = loadImage("poof/poof_3.png");
-        } else if (b < 25) {
+        } else if (b < 150) {
             poof[b] = loadImage("poof/poof_4.png");
         } else {
             poof[b] = loadImage("poof/poof_5.png");
@@ -135,7 +141,8 @@ void setup() {
     damMedium = loadImage("dam_medium.png");
     damLarge = loadImage("dam_large.png");
     nextLevelSign = loadImage("nextlevel.png");
-    
+    bennyHappy = loadImage("Benny Happy.png");
+    bennySad = loadImage("Benny Sad.png");
 }
 
 void draw() {
@@ -152,14 +159,16 @@ void draw() {
             // stopSounds();
             // defeat.play();
             background(0,0,0);
+            imageMode(CENTER);
+            image(bennySad, 850/2, 300);
             textFont(introText, 40);
             fill(100,0,0);
             textAlign(CENTER);
-            text("Barry's Dam is Destroyed!\nGAME OVER!",850/2, 850/2);
+            text("Barry's Dam is Destroyed!\nGAME OVER!",850/2, 700);
             //TODO: Add menu button
             break;
         case 5:
-            // Level Passs
+            // Level Pass 1
             // stopSounds();
             // theme.loop();
             background(255);
@@ -169,31 +178,75 @@ void draw() {
             textFont(introText, 30);
             textAlign(CENTER);
             imageMode(CENTER);
+            image(bennyHappy, 850/2, 300);
+            imageMode(CENTER);
             image(nextLevelSign, 850/2, 575);
-            //TODO: Add next level button
+            imageMode(CORNER);
+            once2 = true;
+            break;
+        case 6:
+            setupLevelScreen(2);
+            break;
+        case 7:
+            setupLevelScreen(3);
+            break;
+        case 8:
+            // Level Pass 2
+            // stopSounds();
+            // theme.loop();
+            background(255);
+            textFont(introText,40);
+            textAlign(CENTER);
+            text("Congratulations!\n You've saved Barry's Dam!", 850/2,300);
+            textFont(introText, 30);
+            textAlign(CENTER);
+            imageMode(CENTER);
+            image(bennyHappy, 850/2, 300);
+            imageMode(CENTER);
+            image(nextLevelSign, 850/2, 575);
+            imageMode(CORNER);
+            once3 = true;
             break;
     }
 }
+
+// boolean isNextLevelPressed() {
+//     int xLowerBound = 850/2;
+//     int xUpperBound = 850/2 + nextLevelSign.width;
+
+//     int yLowerBound = 575;
+//     int yUpperBound = 575 + nextLevelSign.height;
+
+//     return (mouseX > xLowerBound && mouseX < xUpperBound && mouseY > yLowerBound && mouseY < yUpperBound);
+// }
+
 
 boolean once = true;
 
 void keyPressed() {
     if ((key == ENTER) && (once)) {
+        background(255);
         mode = 3;
         once = false;
+    } else if ((key == ENTER) && (once2)) {
+        background(255);
+        mode = 6;
+        once2 = false;
+    } else if ((key == ENTER) && (once3)){
+        background(255);
+        mode = 7;
+        once3 = false;
     } else if ((key != BACKSPACE) && (!once)){
         typing += key;
     } else if ((key == BACKSPACE) && (!once)) {
         if (typing != "" && typing.length() > 0) {
             typing = typing.substring(0, typing.length() - 1);
         }
-    } else if ((key == ENTER) && (!once)) {
-
     }
+}
     //     for q in wordsInLevel;
     //         if currentWord == wordsInLevel[q];
-    //             remove.wordsInLevel[q]    
-}       
+    //             remove.wordsInLevel[q]           
 
 // void stopSounds() {
 //     victory.stop();
