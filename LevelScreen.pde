@@ -3,30 +3,39 @@ PImage background; //TODO: Load the level screen background image
 ArrayList<Item> itemsInLevel = new ArrayList();
 ArrayList<Item> itemsOnScreen = new ArrayList();
 int logCount = 0; //# of logs the player has collected
+int wordCount = 0;
 boolean test = true;
 PFont levelScreenFont;
 String typing = "";
 GameState gs = new GameState();
 
 //Initializes itemsInLevel
-void obtainWords(int difficulty) {
+void obtainWords(int difficulty){
     switch(difficulty) {
         case 1:
-            if (itemsOnScreen.size() < 4) {
-                PImage p1 = loadImage("barrel_red.png");
-                PImage p2 = loadImage("barrel_red.png");
-                PImage p3 = loadImage("barrel_red.png");
-                PImage p4 = loadImage("barrel_red.png");
-
-                Item i1 = new Item("juice", p1);
-                Item i2 = new Item("chess", p2);
-                Item i3 = new Item("beaver", p3);
-                Item i4 = new Item("churchill", p4);
-                itemsOnScreen.add(i1);
-                itemsOnScreen.add(i2);
-                itemsOnScreen.add(i3);
-                itemsOnScreen.add(i4);
+            PImage p1 = loadImage("barrel_red.png");
+            int randomCanadianWordIndex = floor(random(0, 72));
+            if (itemsOnScreen.size() < 30) {
+                Item item = new Item(canadian[randomCanadianWordIndex], p1);
+                if (!itemsOnScreen.contains(item)) {
+                    itemsOnScreen.add(item);
+                }
             }
+            // if (itemsOnScreen.size() < 4) {
+            //     PImage p1 = loadImage("barrel_red.png");
+            //     PImage p2 = loadImage("barrel_red.png");
+            //     PImage p3 = loadImage("barrel_red.png");
+            //     PImage p4 = loadImage("barrel_red.png");
+
+            //     Item i1 = new Item("juice", p1);
+            //     Item i2 = new Item("chess", p2);
+            //     Item i3 = new Item("beaver", p3);
+            //     Item i4 = new Item("churchill", p4);
+            //     itemsOnScreen.add(i1);
+            //     itemsOnScreen.add(i2);
+            //     itemsOnScreen.add(i3);
+            //     itemsOnScreen.add(i4);
+            // }
             //TODO: Fill itemsInLevel with 20 words from database 
             //TODO: 1 log/3 trash
             //TODO: Speed faster
@@ -52,14 +61,17 @@ void obtainWords(int difficulty) {
 // main entry point method for this screen
 void setupLevelScreen(int difficulty) {
     background(255);
+    if (wordCount == 30) {
+        mode = 5;
+    }
     levelScreenFont = createFont("joystix monospace.ttf", 20);
     textFont(levelScreenFont, 20);
     obtainWords(difficulty);
     initializeLevelScreen(difficulty);
-    updateItemsOnScreen();
+    // updateItemsOnScreen();
     moveItems();
     checkCollisions();
-    // displayTextTrash();
+    displayTextTrash();
     displayText();
     checkIfMatch();
 }
@@ -84,7 +96,7 @@ void updateItemsOnScreen() {
 void moveItems() {
     for (Item item : itemsOnScreen) {
         item.yCoord += item.ySpeed;
-        text(item.word, item.xCoord, item.yCoord);
+        // text(item.word, item.xCoord, item.yCoord);
     }
 }
 
@@ -106,7 +118,8 @@ void checkCollisions() {
 
 void displayTextTrash() {
     for (int i = 0; i < itemsOnScreen.size(); i++) {
-        text(itemsOnScreen.get(i).word, i * 100, i * 100);
+        Item item = itemsOnScreen.get(i);
+        text(item.word, item.xCoord, item.yCoord);
     }
     test = false;
 }
@@ -122,7 +135,7 @@ void checkIfMatch() {
     int indexToBeRemoved = -1;
     for (int i = 0; i < itemsOnScreen.size(); i++) {
         Item item = itemsOnScreen.get(i);
-        if (item.word.equals(typing)) {
+        if (item.word.equalsIgnoreCase(typing)) {
             item.writeWord();
             indexToBeRemoved = i;
             break;
@@ -132,6 +145,7 @@ void checkIfMatch() {
     if (indexToBeRemoved != -1) {
         itemsOnScreen.remove(indexToBeRemoved);
         typing = "";
+        wordCount++;
         test = true;
     }
 }
