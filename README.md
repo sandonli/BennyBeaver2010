@@ -1,5 +1,5 @@
 <h1>Benny Beaver 2010</h1>
-
+ 
 <h2>Inspiration</h2>
 We wanted to make a game bringing attention to the problem of pollution in Canada. Pollution is a cause for concern not only in Canada but in all of the world, and while our game keeps a mostly light-hearted tone throughout, we still believed it important to bring attention to the issue of pollution through our setting and main objective.
 
@@ -12,7 +12,7 @@ We used Processing, a powerful, specialized, easy-to-read language to build our 
 <h2>Challenges we ran into</h2>
 None of us had any experience using processing, so it was difficult for us to both learn and then apply our knowledge towards a practical application. We also had no experience with the video game development workflow, so we had to figure out the most efficient way to design our project. Lastly, our experience in developing our own assets was minimal, so we had to figure out tools to create the assets we wanted.
 
-<h2>Accomplishments that we're proud of
+<h2>Accomplishments that we're proud of</h2>
 We finished the project in time!!!
 
 <h2>What we learned</h2>
