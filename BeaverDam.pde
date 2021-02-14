@@ -14,6 +14,8 @@ PImage damMedium;
 PImage damLarge;
 PImage bennyHappy;
 PImage bennySad;
+PImage endscene;
+PImage textBar;
 PImage [] waterhole = new PImage[30];
 PImage[] bennyBeaver = new PImage[30];
 PImage[] poof = new PImage[180];
@@ -129,6 +131,7 @@ void setup() {
             poof[b] = loadImage("poof/poof_5.png");
         }
     }
+    textBar = loadImage("Back.png");
     redBarrel = loadImage("barrel_red.png");               //1 
     garbageBagDown = loadImage("garbage_bag_down.png");    //2
     garbageBagLeft = loadImage("garbage_bag_left.png");    //3
@@ -143,6 +146,7 @@ void setup() {
     nextLevelSign = loadImage("nextlevel.png");
     bennyHappy = loadImage("Benny Happy.png");
     bennySad = loadImage("Benny Sad.png");
+    endscene = loadImage("endscene.png");
 }
 
 void draw() {
@@ -177,6 +181,7 @@ void draw() {
             text("Congratulations!\n You've saved Barry's Dam!", 850/2,300);
             textFont(introText, 30);
             textAlign(CENTER);
+            textAlign(CORNER);
             imageMode(CENTER);
             image(bennyHappy, 850/2, 300);
             imageMode(CENTER);
@@ -200,6 +205,7 @@ void draw() {
             text("Congratulations!\n You've saved Barry's Dam!", 850/2,300);
             textFont(introText, 30);
             textAlign(CENTER);
+            textAlign(CORNER);
             imageMode(CENTER);
             image(bennyHappy, 850/2, 300);
             imageMode(CENTER);
@@ -207,7 +213,11 @@ void draw() {
             imageMode(CORNER);
             once3 = true;
             break;
-    }
+        case 9:
+            image(endscene,0,0);
+            break;
+    }   
+
 }
 
 // boolean isNextLevelPressed() {

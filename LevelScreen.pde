@@ -9,6 +9,8 @@ ArrayList<Item> itemsOnScreen = new ArrayList();
 int logCount = 0; //# of logs the player has clicked
 
 int wordCount = 0;
+int previousDisplayTime3;
+int deltaTime3;
 boolean test = true;
 boolean sad = true;
 PFont levelScreenFont;
@@ -249,7 +251,7 @@ void checkCollisions() {
         if (item.yCoord >= 850 - gs.damHeight) {
             gs.lives = gs.lives - 1;
             indexToBeRemoved = i;
-            //waterLeak();
+            // 
             break;
         }
     }
@@ -285,7 +287,10 @@ void displayTextTrash() {
 //60fps
 void displayText() {
     //TODO: Ask sandon/jason where text box is and what size it is
-    text(typing, 425, 650);
+    image(textBar, 250, 750);
+    fill(0);
+    text(typing, 300, 790);
+    fill(255);
 }
 
 //60fps
