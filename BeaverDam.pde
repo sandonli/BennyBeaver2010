@@ -68,17 +68,17 @@ String[] itemSprites = {
     "skinny_water_jug.png"
 };
 
-// SoundFile theme = new SoundFile(this, "Memo Song.wav");
-// SoundFile defeat = new SoundFile(this, "defeat.wav");
-// SoundFile explosion = new SoundFile(this, "explosion.wav");
-// SoundFile object_hits_dam = new SoundFile(this, "object_hits_dam.wav");
-// SoundFile poof_smoke = new SoundFile(this, "poof_smoke.wav");
-// SoundFile victory = new SoundFile(this, "victory.wav");
+SoundFile theme = new SoundFile(this, "Memo Song.wav");
+SoundFile defeat = new SoundFile(this, "defeat.wav");
+SoundFile explosion = new SoundFile(this, "explosion.wav");
+SoundFile object_hits_dam = new SoundFile(this, "object_hits_dam.wav");
+SoundFile poof_smoke = new SoundFile(this, "poof_smoke.wav");
+SoundFile victory = new SoundFile(this, "victory.wav");
 
 void setup() {
     level = 1;
     size(850, 850);
-    mode = 1;
+    mode = 8;
     introText = createFont("joystix monospace.ttf", 40);
     for (int i = 0; i < 30; i++) {
         if (i < 10) {
@@ -152,7 +152,7 @@ void setup() {
 void draw() {
     switch(mode){
         case 1:
-            // theme.loop();
+            theme.loop();
             introScreen();
             break;
         case 3:
@@ -160,8 +160,8 @@ void draw() {
             break;
         case 4:
             // Game over
-            // stopSounds();
-            // defeat.play();
+            stopSounds();
+            defeat.play();
             background(0,0,0);
             imageMode(CENTER);
             image(bennySad, 850/2, 300);
@@ -173,8 +173,8 @@ void draw() {
             break;
         case 5:
             // Level Pass 1
-            // stopSounds();
-            // theme.loop();
+            stopSounds();
+            theme.loop();
             background(255);
             textFont(introText,40);
             textAlign(CENTER);
@@ -197,8 +197,8 @@ void draw() {
             break;
         case 8:
             // Level Pass 2
-            // stopSounds();
-            // theme.loop();
+            stopSounds();
+            theme.loop();
             background(255);
             textFont(introText,40);
             textAlign(CENTER);
@@ -219,17 +219,6 @@ void draw() {
     }   
 
 }
-
-// boolean isNextLevelPressed() {
-//     int xLowerBound = 850/2;
-//     int xUpperBound = 850/2 + nextLevelSign.width;
-
-//     int yLowerBound = 575;
-//     int yUpperBound = 575 + nextLevelSign.height;
-
-//     return (mouseX > xLowerBound && mouseX < xUpperBound && mouseY > yLowerBound && mouseY < yUpperBound);
-// }
-
 
 boolean once = true;
 
@@ -258,13 +247,11 @@ void keyPressed() {
     //         if currentWord == wordsInLevel[q];
     //             remove.wordsInLevel[q]           
 
-// void stopSounds() {
-//     victory.stop();
-//     theme.stop();
-//     defeat.stop();
-//     explosion.stop();
-//     object_hits_dam.stop();
-//     poof_smoke.stop();
-// }
-
-
+void stopSounds() {
+    victory.stop();
+    theme.stop();
+    defeat.stop();
+    explosion.stop();
+    object_hits_dam.stop();
+    poof_smoke.stop();
+}
