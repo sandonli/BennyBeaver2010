@@ -1,12 +1,12 @@
 class Trash extends Item {
     
     Trash(String word, PImage image) {
-        super(word, image, width, height);
+        super(word, image);
     }
 
-    void hitDam() {
-        if (yCoord >= GameState.damHeight) { //TODO: Replace 600 with dam image height
-            GameState.lives--;
-        }
-    }
+    // void hitDam() {
+    //     if (yCoord >= GameState.damHeight) {
+    //         GameState.lives--;
+    //     }
+    // }
 }

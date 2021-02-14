@@ -16,14 +16,16 @@ PImage damLarge;
 PImage waterhole;
 PImage introBackground;
 PImage levelBackground;
+PFont font;
 int mode;
+PFont introText;
 // Create sound files
 //SoundFile xyz
-Screens screen;
 
 void setup() {
     size(850, 850);
-    mode = 3;
+    mode = 1;
+    introText = createFont("joystix monospace.ttf", 40);
     // log = loadImage();
     // bottle = loadImage();
     // barrel = loadImage();
@@ -39,13 +41,17 @@ void setup() {
 void draw() {
     switch(mode){
         case 1:
-            screen.introScreen();
+            //introScreen();
+            mode = 2;
             break;
         case 2:
-            screen.mainMenu();
+            textFont(introText, 40);
+            fill(0,0,0);
+            textAlign(CENTER);
+            text("Press ENTER to Play!", 850/2, 850/2);
             break;
-        case 3:
-            typeWord();
+       case 3:
+            //levelScreen
             break;
         case 4:
             // gameOverScreen();
