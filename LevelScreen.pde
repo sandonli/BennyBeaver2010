@@ -12,7 +12,7 @@ GameState gs = new GameState();
 void obtainWords(int difficulty) {
     switch(difficulty) {
         case 1:
-            if (itemsOnScreen.size() < 30) {
+            if (itemsOnScreen.size() < 4) {
                 PImage p1 = loadImage("barrel_red.png");
                 PImage p2 = loadImage("barrel_red.png");
                 PImage p3 = loadImage("barrel_red.png");
@@ -27,18 +27,18 @@ void obtainWords(int difficulty) {
                 itemsOnScreen.add(i3);
                 itemsOnScreen.add(i4);
             }
-            //TODO: Fill itemsInLevel with 40 words from database 
-            //TODO: 1 log/9 trash
+            //TODO: Fill itemsInLevel with 20 words from database 
+            //TODO: 1 log/3 trash
             //TODO: Speed faster
             break;
         case 2:
-            //TODO: Fill itemsInLevel with 60 words from database
-            //TODO: 1 log/14 trash
+            //TODO: Fill itemsInLevel with 40 words from database
+            //TODO: 1 log/7 trash
             //TODO: Speed faster
             break; 
         case 3:
-            //TODO: Fill itemsInLevel with 80 words from database
-            //TODO 1 log/19 trash
+            //TODO: Fill itemsInLevel with 60 words from database
+            //TODO 1 log/11 trash
             //TODO: Speed faster
             break;
         default:
@@ -74,7 +74,7 @@ void initializeLevelScreen(int difficulty) {
 // 60fps
 void updateItemsOnScreen() {
     for (Item item : itemsInLevel) {
-        if (item.yCoord >= 0 && itemsOnScreen.size() < 30) {
+        if (item.yCoord >= 0 && itemsOnScreen.size() < 4) {
             itemsOnScreen.add(item);
         }
     }
@@ -90,11 +90,18 @@ void moveItems() {
 
 //60fps
 void checkCollisions() {
+    int indexToBeRemoved = -1;
     for (Item item : itemsOnScreen) {
         if (item.yCoord >= gs.damHeight) {
             gs.lives--;
+            break;
         }
     }
+    if (indexToBeRemoved != -1) {
+        itemsOnScreen.remove(indexToBeRemoved);
+        typing="";
+    }
+
 }
 
 void displayTextTrash() {
@@ -124,7 +131,7 @@ void checkIfMatch() {
     }
     if (indexToBeRemoved != -1) {
         itemsOnScreen.remove(indexToBeRemoved);
-        // typing = "";
+        typing = "";
         test = true;
     }
 }
