@@ -251,13 +251,20 @@ void checkCollisions() {
         if (item.yCoord >= 850 - gs.damHeight) {
             gs.lives = gs.lives - 1;
             indexToBeRemoved = i;
-            // 
+            // waterleak was here did not work
             break;
         }
     }
-    if (indexToBeRemoved != -1) {
+    if (indexToBeRemoved != -1) {                       //       WE SHOULD INDENT IN ONE TO CHECK IF IT WORKS
         itemsOnScreen.remove(indexToBeRemoved);
+        object_hits_dam.play();
+        object_hits_dam.stop();
+        
+        frame3 = (frame3 + 1) % 30;
+        image(waterhole[frame3], 400, 800);
+
         typing="";
+    
     }
 }
 
@@ -314,7 +321,8 @@ void checkIfMatch() {
     if (indexToBeRemoved != -1) {
         itemsOnScreen.remove(indexToBeRemoved);
         typing = "";
-
+        
+        
         // deltaTime = 2000;
         // previousDisplayTime = 0;
 

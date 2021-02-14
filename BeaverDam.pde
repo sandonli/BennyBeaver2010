@@ -52,11 +52,16 @@ boolean once2 = false;
 boolean once3 = false;
 PFont introText;
 
+SoundFile theme;
+SoundFile defeat;
+SoundFile object_hits_dam;
+SoundFile victory;
+
 String[] canadian = {"eh", "maple syrup", "sorry","poutine","Toronto", "Calgary", "lacrosse", "Canada", "Lethbridge", "Edmonton", "Ottawa", "Raptors", "Justin Trudeau", "Alberta","Victoria",
-    "Terry Fox", "kilometers", "polar bear", "beaver", "geese", "Yellowknife", "NorthWest Territories", "Hudson Bay","Quebec","Newfoundland", "Labrador", "Charlottetown", "Saskatoon", "Regina",   
+    "Terry Fox", "kilometers", "polar bear", "beaver", "geese", "Yellowknife", "NW Territories", "Hudson Bay","Quebec","Newfoundland", "Labrador", "Charlottetown", "Saskatoon", "Regina",   
     "hockey", "curling", "Vancouver", "Montreal", "Halifax", "Nova Scotia", "maple leaf", "New Brunswick", "Manitoba", "Saskatchewan", "Railway","U of C","U of T","U of A", "Dalhousie", "Edgemont", "Bowness", "Musqueam", "SAIT",
     "Yukon", "Nunavut", "goose", "Tim Hortons", "loonie", "chinook", "RCMP", "toque", "timbits", "UBC", "McGill", "Pop", "Toque", "Chinook","Mountie", "Two Four","skating","skiing","CalgaryHacks","celcius","pikachu",
-    "Moose", "Canucks", "Cowtown", "Justin Bieber" , "Drake","Justin Beaver","Celine Dion", "GSP","Andrew Wiggins","RJ Barrett", "YYC","Trump", "Nosehill", "Elbow River", "dumb blue ring", "Ginger Ale",
+    "Moose", "Canucks", "Cowtown", "Justin Bieber" , "Drake","Justin Beaver","Celine Dion", "GSP","Wiggins","RJ Barrett", "YYC","Trump", "Nosehill", "Elbow River", "dumb blue ring", "Ginger Ale",
     "Jim Carrey", "Stampede", "Seth Rogen", "Moncton", "Quebec City", "Winnipeg", "Flames", "Nenshi", "Shaganappi", "Cold","the","and","you","that","was","for","are","with","his","they","this","have","from","one","had","word","but","not","what","all","were","when","your","can","said","there","use","each","which","she","how","their","will","other","about","out","many","then","them","these","some","her","would","make","like","him","into","time","has","look","two","more","write","go","see","number","no","way","could","people","than","first","water","been","call","who","oil","its","now","find","long","down","day","did","get","come","made","may","part"};
 
 String[] itemSprites = {
@@ -68,17 +73,15 @@ String[] itemSprites = {
     "skinny_water_jug.png"
 };
 
-SoundFile theme = new SoundFile(this, "Memo Song.wav");
-SoundFile defeat = new SoundFile(this, "defeat.wav");
-SoundFile explosion = new SoundFile(this, "explosion.wav");
-SoundFile object_hits_dam = new SoundFile(this, "object_hits_dam.wav");
-SoundFile poof_smoke = new SoundFile(this, "poof_smoke.wav");
-SoundFile victory = new SoundFile(this, "victory.wav");
+
+// SoundFile explosion = new SoundFile(this, "explosion.wav");
+// SoundFile poof_smoke = new SoundFile(this, "poof_smoke.wav");
+
 
 void setup() {
     level = 1;
     size(850, 850);
-    mode = 8;
+    mode = 1;
     introText = createFont("joystix monospace.ttf", 40);
     for (int i = 0; i < 30; i++) {
         if (i < 10) {
@@ -147,11 +150,17 @@ void setup() {
     bennyHappy = loadImage("Benny Happy.png");
     bennySad = loadImage("Benny Sad.png");
     endscene = loadImage("endscene.png");
+
+    theme = new SoundFile(this, "Memo Song.wav");
+    defeat = new SoundFile(this, "defeat.wav");
+    object_hits_dam = new SoundFile(this, "object_hits_dam.wav");
+    victory = new SoundFile(this, "victory.wav");
 }
 
 void draw() {
     switch(mode){
         case 1:
+            stopSounds();
             theme.loop();
             introScreen();
             break;
@@ -215,6 +224,7 @@ void draw() {
             break;
         case 9:
             image(endscene,0,0);
+            victory.play();
             break;
     }   
 
@@ -251,7 +261,7 @@ void stopSounds() {
     victory.stop();
     theme.stop();
     defeat.stop();
-    explosion.stop();
+    // explosion.stop();
     object_hits_dam.stop();
-    poof_smoke.stop();
+    // poof_smoke.stop();
 }

@@ -12,13 +12,4 @@ class GameState {
     GameState() {
         this.lives = 3;
     }
-
-
-    
-
-
-
-
-
-
 }
