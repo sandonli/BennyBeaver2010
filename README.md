@@ -2,14 +2,14 @@
 
 fun game
 
-Classes:
+_Classes:_
 
 wordsList
 Logs
 Trash
 GameState (lives, level, etc.)
 
-Screens:
+_Screens:_
 
 Main Menu
 Transition
@@ -19,3 +19,20 @@ Level Selector?
 Level Passed?
 Endless
 Game Over with SAD BEAVER
+
+_Animations:_
+
+Log/Trash disappearing POOF animation
+
+_Ideas:_
+
+Bomb word
+
+BeaverDam
+
+- Main class to start the game
+- Displays specified screen
+
+GameState
+
+- Maintains state of game (lives, difficulty, etc.)
