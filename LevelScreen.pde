@@ -3,6 +3,9 @@ PImage[] river = new PImage[3];
 int imageCount = 3;
 int frame;
 
+int previousDisplayTime;
+int deltaTime;
+
 ArrayList<Item> itemsInLevel = new ArrayList();
 ArrayList<Item> itemsOnScreen = new ArrayList();
 int logCount = 0; //# of logs the 
@@ -84,6 +87,9 @@ void setupLevelScreen(int difficulty) {
 }
 
 void displayRiver() {
+    deltaTime = 2000;
+    previousDisplayTime = 0;
+
     String filename1 = "river1.png";
     String filename2 = "river2.png";
     String filename3 = "river3.png";
@@ -91,9 +97,13 @@ void displayRiver() {
     river[1] = loadImage(filename2);
     river[2] = loadImage(filename3);
 
-    frame = (frame + 1) % imageCount;
-    image(river[frame], 0, 0);
-    delay(100);
+    if (millis() > previousDisplayTime + deltaTime) {
+        frame = (frame + 1) % imageCount;
+        image(river[frame], 0, 0);
+        previousDisplayTime = millis();
+    }
+
+
 }
 
 //60fps

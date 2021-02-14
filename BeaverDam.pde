@@ -94,11 +94,7 @@ void keyPressed() {
     }
     //     for q in wordsInLevel;
     //         if currentWord == wordsInLevel[q];
-    //             remove.wordsInLevel[q]
-
-
-    
-        
+    //             remove.wordsInLevel[q]    
 }        
 
 
