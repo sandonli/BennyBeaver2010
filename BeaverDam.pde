@@ -51,7 +51,7 @@ void draw() {
             text("Press ENTER to Play!", 850/2, 850/2);
             break;
        case 3:
-            //levelScreen
+            setupLevelScreen(1);
             break;
         case 4:
             // gameOverScreen();
@@ -61,3 +61,29 @@ void draw() {
             break;
     }
 }
+
+boolean once = true;
+
+void keyPressed() {
+    if ((key == ENTER) && (once)) {
+        mode = 3;
+        once = false;
+    } else if ((key != BACKSPACE) && (!once)){
+        typing += key;
+    } else if ((key == BACKSPACE) && (!once)) {
+        if (typing != "" && typing.length() > 0) {
+            typing = typing.substring(0, typing.length() - 1);
+        }
+    } else if ((key == ENTER) && (!once)) {
+
+    }
+    //     for q in wordsInLevel;
+    //         if currentWord == wordsInLevel[q];
+    //             remove.wordsInLevel[q]
+
+
+    
+        
+}        
+
+

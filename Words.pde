@@ -20,8 +20,8 @@ String curr;
 // }
 
 //Function checks if passed character matches expected typed character for the item
-boolean doesKeyWork(char x, Item item){
-    int i = item.num_written;
-    String word = item.word;
-    return x == word.charAt(i);
-}
+// boolean doesKeyWork(char x, Item item){
+//     int i = item.num_written;
+//     String word = item.word;
+//     return x == word.charAt(i);
+// }
