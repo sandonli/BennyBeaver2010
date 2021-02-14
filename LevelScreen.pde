@@ -1,10 +1,8 @@
 // Gif river;
-//PImage[] river = new PImage[3];
+// PImage[] river = new PImage[3];
 PImage damImage;
 int previousDisplayTime;
 int deltaTime;
-
-// boolean isDuplicate;
 
 ArrayList<Item> itemsInLevel = new ArrayList();
 ArrayList<Item> itemsOnScreen = new ArrayList();
@@ -54,7 +52,7 @@ void obtainWords(int difficulty){
                 //     }
                 // }
                 if (itemIsValid(item2)) itemsOnScreen.add(item2);
-      
+        
             }
             break; 
         case 3:
@@ -129,7 +127,7 @@ void setupLevelScreen(int difficulty) {
     levelScreenFont = createFont("joystix monospace.ttf", 20);
     textFont(levelScreenFont, 20);
     obtainWords(difficulty);
-    if (sad) initializeLevelScreen(difficulty);
+    initializeLevelScreen(difficulty);
     // updateItemsOnScreen();
     moveItems();
     checkCollisions();
@@ -153,23 +151,31 @@ void displayRiver() {
 //60fps
 void initializeLevelScreen(int difficulty) {
     //Set background image value
-    gs.lives = 3;
     switch(difficulty) {
         case 1:
             gs.damHeight = 196;
             damImage = damSmall;
             break;
         case 2:
-            //TODO: Fill in damHeight
-            //TODO: Assign damMedium
+            gs.damHeight = 236;
+            damImage = damMedium;
             break;
         case 3:
-            //TODO: Fill in damHeight
-            //TODO: Assign damLarge
+            gs.damHeight = 317;
+            damImage = damLarge;
             break;
         default:
             break;
     }
+    deltaTime = 2000;
+    previousDisplayTime = 0;
+
+    if (millis() > previousDisplayTime + deltaTime) {
+        frame4 = (frame4 + 1) % imageCount4;
+        image(bennyBeaver[frame4], 640, 600);
+        previousDisplayTime = millis();
+    }
+    image(damImage, 135, 855-gs.damHeight);
     sad = false;
 }
 
@@ -203,15 +209,16 @@ void checkCollisions() {
     }
     if (indexToBeRemoved != -1) {
         itemsOnScreen.remove(indexToBeRemoved);
+        waterLeak();
         typing="";
     }
 }
 
 void positionText(Item item) {
     if (item.word.length() >= 4 && item.word.length() <= 6) {
-        text(item.word, item.xCoord + 60, item.yCoord + 40);
-    } else if (image.word.length() > 6) {
         text(item.word, item.xCoord + 20, item.yCoord + 40);
+    } else if (item.word.length() > 6) {
+        text(item.word, item.xCoord + 5, item.yCoord + 40);
     }
 }
 
@@ -220,8 +227,12 @@ void displayTextTrash() {
         Item item = itemsOnScreen.get(i);
         item.image.resize(160, 80);
         image(item.image, item.xCoord, item.yCoord);
-        positionText(item);
-        // text(item.word, item.xCoord + 80, item.yCoord + 40);
+
+        if (item.word.length() < 4) {
+            text(item.word, item.xCoord + 63, item.yCoord + 40);
+        } else {
+            positionText(item);
+        }
     }
     test = false;
 }
@@ -235,10 +246,12 @@ void displayText() {
 //60fps
 void checkIfMatch() {
     int indexToBeRemoved = -1;
+    Item removedItem = null;
     for (int i = 0; i < itemsOnScreen.size(); i++) {
         Item item = itemsOnScreen.get(i);
         if (item.word.equalsIgnoreCase(typing)) {
-            item.writeWord();
+            removedItem = item;
+            removedItem.writeWord();
             indexToBeRemoved = i;
             break;
             // itemsOnScreen.remove(item);
@@ -247,8 +260,20 @@ void checkIfMatch() {
     if (indexToBeRemoved != -1) {
         itemsOnScreen.remove(indexToBeRemoved);
         typing = "";
+
+        deltaTime = 2000;
+        previousDisplayTime = 0;
+
+        if (millis() > previousDisplayTime + deltaTime) {
+            for (int i = 0; i < 30; i++) {
+                frame5 = (frame5 + 1) % 30;
+                image(poof[frame5], removedItem.xCoord, removedItem.yCoord);
+                previousDisplayTime = millis();
+            }
+        }
+
         wordCount++;
-        test = true;
+
     }
 }
 

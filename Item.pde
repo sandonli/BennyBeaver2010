@@ -10,7 +10,7 @@ class Item {
     //TODO: What are the horizontal px boundaries of the River?
     float xCoord = random(125, 450); //horizontal pos of item
     float yCoord = random(-500, 0); //vertical pos of item, initially 0 (top of screen)
-    float ySpeed = 2; // speed of item falling
+    float ySpeed = 1; // speed of item falling
 
     int width; //width of item
     int height; //height of item

@@ -1,6 +1,7 @@
 int previousDisplayTime2;
 int deltaTime2;
 
+
 void introScreen(){
     deltaTime2 = 2000;
     previousDisplayTime2 = 0;
@@ -12,8 +13,4 @@ void introScreen(){
     }
 
 
-}
-
-void nextLevel(){
-    
 }

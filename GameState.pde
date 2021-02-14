@@ -9,6 +9,10 @@ class GameState {
     boolean gameInProcess; //true - user is playing
                            //false - user is not playing
 
+    GameState() {
+        this.lives = 3;
+    }
+
 
     
 

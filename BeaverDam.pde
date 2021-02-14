@@ -12,7 +12,9 @@ PImage damSmall;
 PImage damMedium;
 PImage damLarge;
 PImage [] waterhole = new PImage[30];
-PImage = nextLevelSign;
+PImage[] bennyBeaver = new PImage[30];
+PImage[] poof = new PImage[30];
+PImage nextLevelSign;
 PImage[] intro = new PImage[30];
 String factory1 = "Factory_2.png";
 String factory2 = "Factory_2b.png";
@@ -20,10 +22,17 @@ PImage[] river = new PImage[30];
 String filename1 = "river1.png";
 String filename2 = "river2.png";
 String filename3 = "river3.png";
+String waterhole1 = "DamLeak1.png";
+String waterhole2 = "DamLeak2.png";
 int imageCount = 30;
 int imageCount2 =30;
+int imageCount3 = 30;
+int imageCount4 = 30;
 int frame;
 int frame2 = 0;
+int frame3;
+int frame4;
+int frame5;
 PFont font;
 PImage logInit;
 PImage redBarrel;
@@ -36,12 +45,12 @@ PImage logInitLong;
 int mode;
 PFont introText;
 
-String[] canadian = {"eh", "maple syrup", "sorry","poutine","Toronto", "Calgary", "lacrosse", "Canada", "Lethbridge", "Edmonton", "Ottawa", "Toronto Raptors", "Justin Trudeau", "Alberta","Victoria",
+String[] canadian = {"eh", "maple syrup", "sorry","poutine","Toronto", "Calgary", "lacrosse", "Canada", "Lethbridge", "Edmonton", "Ottawa", "Raptors", "Justin Trudeau", "Alberta","Victoria",
     "Terry Fox", "kilometers", "polar bear", "beaver", "geese", "Yellowknife", "NorthWest Territories", "Hudson Bay","Quebec","Newfoundland", "Labrador", "Charlottetown", "Saskatoon", "Regina",   
-    "hockey", "curling", "Vancouver", "Montreal", "Halifax", "Nova Scotia", "maple leaf", "New Brunswick", "Manitoba", "Saskatchewan", "Railway","UOFC","UOFT","UOFA",
-    "Yukon", "Nunavut", "goose", "Tim Hortons", "loonie", "chinook", "RCMP", "toque", "timbits", "UBC", "McGill", "Double Double", "Pop", "Toque", "Chinook","Mountie", "Two Four",
-    "Moose", "Canucks", "Cowtown", "Justin Bieber" , "Drake","Justin Beaver","Celine Dion","Avril Lavigne","GSP","Andrew Wiggins","RJ Barrett",
-    "Jim Carrey", "Seth Rogen", "Sydney Crosby", "Moncton", "Quebec City", "Winnipeg", "Flames", "Nenshi", "Shaganappi", "Cold","the","of","and","a","to","in","is","you","that","it","he","was","for","on","are","as","with","his","they","I","at","be","this","have","from","or","one","had","by","word","but","not","what","all","were","we","when","your","can","said","there","use","an","each","which","she","do","how","their","if","will","up","other","about","out","many","then","them","these","so","some","her","would","make","like","him","into","time","has","look","two","more","write","go","see","number","no","way","could","people","my","than","first","water","been","call","who","oil","its","now","find","long","down","day","did","get","come","made","may","part"};
+    "hockey", "curling", "Vancouver", "Montreal", "Halifax", "Nova Scotia", "maple leaf", "New Brunswick", "Manitoba", "Saskatchewan", "Railway","U of C","U of T","U of A", "Dalhousie", "Edgemont", "Bowness", "Musqueam", "SAIT",
+    "Yukon", "Nunavut", "goose", "Tim Hortons", "loonie", "chinook", "RCMP", "toque", "timbits", "UBC", "McGill", "Pop", "Toque", "Chinook","Mountie", "Two Four","skating","skiing","CalgaryHacks","celcius","pikachu",
+    "Moose", "Canucks", "Cowtown", "Justin Bieber" , "Drake","Justin Beaver","Celine Dion", "GSP","Andrew Wiggins","RJ Barrett", "YYC","Trump", "Nosehill", "Elbow River", "dumb blue ring", "Ginger Ale",
+    "Jim Carrey", "Stampede", "Seth Rogen", "Moncton", "Quebec City", "Winnipeg", "Flames", "Nenshi", "Shaganappi", "Cold","the","and","you","that","was","for","are","with","his","they","this","have","from","one","had","word","but","not","what","all","were","when","your","can","said","there","use","each","which","she","how","their","will","other","about","out","many","then","them","these","some","her","would","make","like","him","into","time","has","look","two","more","write","go","see","number","no","way","could","people","than","first","water","been","call","who","oil","its","now","find","long","down","day","did","get","come","made","may","part"};
 
 String[] itemSprites = {
     "barrel_red.png",
@@ -81,6 +90,39 @@ void setup() {
             intro[q] = loadImage(factory2);
         }
     }
+
+    for (int v = 0; v < 30; v++) {
+        if (v < 15){
+            waterhole[v] = loadImage(waterhole1);
+        }
+        else {
+            waterhole[v] = loadImage(waterhole2);
+        }
+    }
+
+    for (int z = 0; z < 30; z++) {
+        if (z < 15) {
+            bennyBeaver[z] = loadImage("BennyBeaver 1.png");
+        } else {
+            bennyBeaver[z] = loadImage("BennyBeaver 2.png");
+        }
+    }
+
+    for (int b = 0; b < 30; b++) {
+        if (b < 5) {
+            poof[b] = loadImage("poof/poof_0.png");
+        } else if (b < 10) {
+            poof[b] = loadImage("poof/poof_1.png");
+        } else if (b < 15) {
+            poof[b] = loadImage("poof/poof_2.png");
+        } else if (b < 20) {
+            poof[b] = loadImage("poof/poof_3.png");
+        } else if (b < 25) {
+            poof[b] = loadImage("poof/poof_4.png");
+        } else {
+            poof[b] = loadImage("poof/poof_5.png");
+        }
+    }
     redBarrel = loadImage("barrel_red.png");               //1 
     garbageBagDown = loadImage("garbage_bag_down.png");    //2
     garbageBagLeft = loadImage("garbage_bag_left.png");    //3
@@ -90,6 +132,8 @@ void setup() {
     logInit = loadImage("log_init.png");
     logInitLong = loadImage("log_init_long.png");
     damSmall = loadImage("dam_init.png");
+    damMedium = loadImage("dam_medium.png");
+    damLarge = loadImage("dam_large.png");
     nextLevelSign = loadImage("nextlevel.png");
     
 }
@@ -124,7 +168,8 @@ void draw() {
             text("Congratulations!\n You've saved Barry's Dam!", 850/2,300);
             textFont(introText, 30);
             textAlign(CENTER);
-
+            imageMode(CENTER);
+            image(nextLevelSign, 850/2, 575);
             //TODO: Add next level button
             break;
     }
