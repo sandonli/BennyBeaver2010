@@ -5,4 +5,3 @@
 //     "Yukon", "Nunavut", "goose", "Tim Hortons", "loonie", "chinook", "RCMP", "toque", "timbits", "UBC", "McGill", "Double Double", "Pop", "Toque", "Chinook","Mountie", "Two Four",
 //     "Moose", "Canucks", "Cowtown", "Justin Bieber" , "Drake","Justin Beaver","Celine Dion","Avril Lavigne","GSP","Andrew Wiggins","RJ Barrett",
 //     "Jim Carrey", "Seth Rogen"}
-

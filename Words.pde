@@ -25,4 +25,3 @@ String curr;
 //     String word = item.word;
 //     return x == word.charAt(i);
 // }
-

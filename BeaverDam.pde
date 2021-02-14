@@ -245,8 +245,10 @@ void keyPressed() {
         background(255);
         mode = 7;
         once3 = false;
-    } else if ((key != BACKSPACE) && (!once)){
+    } else if ((key != CODED)&&(key != BACKSPACE) && (!once)&&(key != ENTER)){
+        if(typing.length()>0){
         typing += key;
+      }
     } else if ((key == BACKSPACE) && (!once)) {
         if (typing != "" && typing.length() > 0) {
             typing = typing.substring(0, typing.length() - 1);

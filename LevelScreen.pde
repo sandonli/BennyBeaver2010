@@ -296,7 +296,7 @@ void displayText() {
     //TODO: Ask sandon/jason where text box is and what size it is
     image(textBar, 250, 750);
     fill(0);
-    text(typing, 300, 790);
+    text(typing, 300, 780);
     fill(255);
 }
 
@@ -356,7 +356,3 @@ void checkIfGameOver() {
 // void keyPressed(){
 //     typing += key;
 // }
-
-
-
-
